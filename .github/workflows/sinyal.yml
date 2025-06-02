@@ -1,0 +1,27 @@
+
+name: Forex Sinyal Botu
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'  # Her 10 dakikada bir çalışır
+  workflow_dispatch:        # Manuel tetiklemeye de izin verir
+
+jobs:
+  run-signal-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Repositoriesi klonla
+      uses: actions/checkout@v3
+
+    - name: Python ortamını ayarla
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Gereksinimleri yükle
+      run: |
+        pip install requests pandas
+
+    - name: Sinyal analizini çalıştır
+      run: python sinyal_analiz_guncel.py
