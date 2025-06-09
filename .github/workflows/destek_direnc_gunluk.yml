@@ -3,7 +3,7 @@ name: Destek Direnç Botu (No GUI)
 
 on:
   schedule:
-    - cron: '0 * * * *'  # Her saat başı çalışır
+    - cron: '0 8 * * *'  # Her gün saat 08:00'de UTC (Türkiye saatiyle 11:00 olabilir)
   workflow_dispatch:
 
 jobs:
