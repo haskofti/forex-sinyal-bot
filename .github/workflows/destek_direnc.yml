@@ -1,0 +1,27 @@
+
+name: Destek Direnç Botu (No GUI)
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Her saat başı çalışır
+  workflow_dispatch:
+
+jobs:
+  run-destek-direnc:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Repo'yu klonla
+      uses: actions/checkout@v3
+
+    - name: Python ortamını ayarla
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Gereksinimleri yükle
+      run: |
+        pip install requests pandas
+
+    - name: Destek Direnç analizini çalıştır
+      run: python destek_direnc_nogui.py
