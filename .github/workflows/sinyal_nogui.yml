@@ -1,0 +1,27 @@
+
+name: Forex Sinyal Botu (No GUI)
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Her 30 dakikada bir
+  workflow_dispatch:
+
+jobs:
+  run-nogui-signal:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Repo'yu klonla
+      uses: actions/checkout@v3
+
+    - name: Python ortamını ayarla
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Gereksinimleri yükle
+      run: |
+        pip install requests pandas
+
+    - name: No-GUI sinyal analizini çalıştır
+      run: python sinyal_analiz_nogui_zamanli.py
