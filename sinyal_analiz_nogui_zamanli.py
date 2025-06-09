@@ -78,18 +78,20 @@ def generate_signal(df):
         return "Sinyal YOK (kararsız)"
 
 def main():
-    try:
-        zaman_dilimleri = ["30min", "1h", "4h"]
-tum_sinyaller = ""
+    zaman_dilimleri = ["30min", "1h", "4h"]
+    tum_sinyaller = ""
 
-for zaman in zaman_dilimleri:
-    df = fetch_data(interval=zaman)
-    df = calculate_indicators(df)
-    signal = generate_signal(df)
-    tum_sinyaller += f"[{zaman}] {signal}\\n"
+    for zaman in zaman_dilimleri:
+        try:
+            df = fetch_data(interval=zaman)
+            df = calculate_indicators(df)
+            signal = generate_signal(df)
+            tum_sinyaller += f"[{zaman}] {signal}\\n"
+        except Exception as e:
+            tum_sinyaller += f"[{zaman}] Hata: {str(e)}\\n"
 
-print(tum_sinyaller)
-send_email("Zamanlı Forex Sinyalleri", tum_sinyaller)
+    print(tum_sinyaller)
+    send_email("Forex Sinyal (Çoklu Zaman)", tum_sinyaller)
     except Exception as e:
         print("HATA:", e)
 
